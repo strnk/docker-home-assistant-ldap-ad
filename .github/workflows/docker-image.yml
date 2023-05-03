@@ -34,3 +34,5 @@ jobs:
       with:
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ matrix.HA_IMAGE_TAG }}
+        build-args: |
+          HA_IMAGE_TAG: ${{ matrix.HA_IMAGE_TAG }}
