@@ -33,6 +33,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ${{ env.IMAGE_NAME }}:${{ matrix.HA_IMAGE_TAG }}
+        tags: ${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ matrix.HA_IMAGE_TAG }}
         build-args: |
           HA_IMAGE_TAG=${{ matrix.HA_IMAGE_TAG }}
