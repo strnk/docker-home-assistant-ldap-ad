@@ -2,7 +2,12 @@ name: Docker Image CI
 
 on:
   workflow_dispatch:
-
+  push:
+  repository_dispatch:
+    types: [ trigger_buildimage ]
+  schedule:
+    # sync with HA "latest" every day
+    - cron:  '33 3 * * *'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: home-assistant-ldap-ad
@@ -33,6 +38,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_NAME }}:${{ matrix.HA_IMAGE_TAG }}
+        tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ env.IMAGE_NAME }}:${{ matrix.HA_IMAGE_TAG }}
         build-args: |
           HA_IMAGE_TAG=${{ matrix.HA_IMAGE_TAG }}
